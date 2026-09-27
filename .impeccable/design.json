@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-27T21:49:08+07:00",
+  "title": "Design System: Ulinkeun — cinematic destination hero",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Dark paper" },
+      "ink": { "role": "neutral", "displayName": "Warm ivory" },
+      "muted": { "role": "neutral", "displayName": "Muted ivory" },
+      "accent": { "role": "primary", "displayName": "Amber marker" },
+      "accent-hover": { "role": "primary", "displayName": "Light amber" },
+      "rule": { "role": "neutral", "displayName": "Translucent ivory" },
+      "shade": { "role": "neutral", "displayName": "Deep photographic shade" },
+      "clear": { "role": "neutral", "displayName": "Transparent shade" },
+      "dialog": { "role": "neutral", "displayName": "Dark olive dialog" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Destination display", "purpose": "Uppercase Barlow Condensed 700; base clamp is overridden at max-width 359px and min-width 640px/1024px." },
+      "card-title": { "displayName": "Portrait card title", "purpose": "Uppercase Barlow Condensed 600; 26px base, 32px from 640px, 36px from 1440px." },
+      "dialog-title": { "displayName": "Destination detail title", "purpose": "Barlow Condensed 600 heading labelled by detail-title in the native dialog." },
+      "wordmark": { "displayName": "Ulinkeun wordmark", "purpose": "Geist 700; 28px base, 24px at max-width 359px, 32px from 640px." },
+      "tagline": { "displayName": "Destination invitation", "purpose": "Geist 500; 15px base and 16px from 1024px." },
+      "body": { "displayName": "Destination description", "purpose": "Muted Geist copy, max-width 39ch; 12px base, 13px from 640px, 14px from 1440px." },
+      "button-label": { "displayName": "Discovery label", "purpose": "Geist 600 on the amber discovery action." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Source --ease-out for CSS hover transitions." },
+      { "name": "control-hover", "value": "180ms", "purpose": "Discovery background and circular-control color/background transitions." },
+      { "name": "card-photo-hover", "value": "scale: 1.055; transition: scale 500ms var(--ease-out)", "purpose": "Portrait photo hover enlargement; reduced motion resets scale to 1." },
+      { "name": "autoplay-countdown", "value": "5s; ease: none; scaleX: 0 → 1", "purpose": "Countdown after playback becomes eligible. Resets on active/playing changes; transitions and image waits add to wall-clock cycle time." },
+      { "name": "slide-base", "value": "1.05s; ease: power3.inOut", "purpose": "Shared GSAP base duration. Incoming scenery scale 1.045 → 1; outgoing/incoming scenery crossfade together. Child staggering can extend the timeline." },
+      { "name": "copy-exit", "value": "y: -18; opacity: 0; duration: base * 0.3; stagger: 0.025s", "purpose": "Outgoing children start at time zero; copy autoAlpha becomes zero at base * 0.4." },
+      { "name": "copy-entry", "value": "y: 28 → 0; opacity: 0 → 1; duration: base * 0.6; stagger: 0.055s; ease: power3.out", "purpose": "Incoming copy becomes visible and child entry starts at base * 0.32." },
+      { "name": "card-wrap", "value": "x: -stride; opacity: 0; scale: 0.94; duration: base * 0.6", "purpose": "Wrapping card exits, is set to its new slot at base * 0.6, then if upcoming fades in over base * 0.35 starting at base * 0.65. Other moving cards translate over the base duration." },
+      { "name": "reduced-motion", "value": "0.12s base; scenery scale: 1; text y: 0; stagger: 0; immediate card placement", "purpose": "Retains a short manual crossfade. Autoplay and playback button are disabled; CSS transition-duration becomes 0.01ms !important and scroll-behavior auto !important." },
+      { "name": "button-active", "value": "translate: 0 1px", "purpose": "Active feedback on buttons that are not natively disabled; still present under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "compact-max (max-width)", "value": "359px" },
+      { "name": "medium-min (min-width)", "value": "640px" },
+      { "name": "desktop-min (min-width)", "value": "1024px" },
+      { "name": "wide-min (min-width)", "value": "1440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Discovery action",
+      "kind": "button",
+      "refersTo": "button-discover",
+      "description": "Static visual specimen of Temukan ceritanya. Runtime opens the native destination dialog and persists pause; natively disabled while transitioning. Minimum height 48px, not a fixed height.",
+      "html": "<button class=\"ds-discover\" type=\"button\">Temukan ceritanya <span><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10M7 17 17 7\"/></svg></span></button>",
+      "css": ".ds-discover { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; padding: 5px 5px 5px 22px; background: var(--color-accent); color: var(--color-paper); border: none; border-radius: 32px; min-height: 48px; font-family: var(--font-body); font-size: 12px; font-weight: 600; white-space: nowrap; cursor: pointer; touch-action: manipulation; transition: background 180ms var(--ease-out); } .ds-discover > span { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid color-mix(in oklch, var(--color-paper) 25%, transparent); border-radius: 50%; } .ds-discover:hover { background: var(--color-accent-hover); } .ds-discover:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 5px; } .ds-discover:active:not(:disabled) { translate: 0 1px; } .ds-discover:disabled { opacity: 0.7; cursor: default; } @media (prefers-reduced-motion: reduce) { .ds-discover { transition-duration: 0.01ms !important; } }"
+    },
+    {
+      "name": "Circular next control",
+      "kind": "button",
+      "refersTo": "button-circle",
+      "description": "Static next-arrow specimen; previous uses the mirrored arrow. Runtime pauses and navigates; aria-disabled indicates transition lock but does not remove the button from Tab order.",
+      "html": "<button class=\"ds-circle\" type=\"button\" aria-label=\"Destinasi berikutnya\" aria-disabled=\"false\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-7-7 7 7-7 7\"/></svg></button>",
+      "css": ".ds-circle { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 1px solid var(--color-rule); border-radius: 50%; background: transparent; color: var(--color-ink); font-family: var(--font-body); cursor: pointer; touch-action: manipulation; transition: color 180ms var(--ease-out), background 180ms var(--ease-out); } .ds-circle:hover { background: var(--color-ink); color: var(--color-paper); } .ds-circle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 5px; } .ds-circle:active:not(:disabled) { translate: 0 1px; } .ds-circle[aria-disabled=\"true\"] { cursor: default; } @media (prefers-reduced-motion: reduce) { .ds-circle { transition-duration: 0.01ms !important; } }"
+    },
+    {
+      "name": "Playback toggle",
+      "kind": "button",
+      "refersTo": "button-playback",
+      "description": "Static playing-state specimen. In React, paused/reduced shows Play and Putar carousel otomatis; otherwise Pause and Jeda carousel. aria-pressed is !paused && !reduced, independent of hover/visibility/busy suspension. Reduced motion natively disables it.",
+      "html": "<button class=\"ds-playback\" type=\"button\" aria-label=\"Jeda carousel\" aria-pressed=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"14\" y=\"3\" width=\"4\" height=\"18\" rx=\"1\"/><rect x=\"6\" y=\"3\" width=\"4\" height=\"18\" rx=\"1\"/></svg></button>",
+      "css": ".ds-playback { display: grid; place-items: center; width: 44px; height: 44px; background: none; border: none; color: var(--color-ink); font-family: var(--font-body); flex-shrink: 0; margin-inline: -12px; cursor: pointer; touch-action: manipulation; } .ds-playback:hover { color: var(--color-accent); } .ds-playback:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 5px; } .ds-playback:active:not(:disabled) { translate: 0 1px; } .ds-playback:disabled { opacity: 0.5; cursor: default; }"
+    },
+    {
+      "name": "Portrait destination card",
+      "kind": "card",
+      "refersTo": "destination-card",
+      "description": "Static Bromo specimen, the first upcoming card when Bali is active. Photo and object position are copied from lib/destinations.ts. Runtime positions all cards by measured stride; only fully fitting upcoming slots enter Tab order, capped at three, with an inset focus ring. This specimen does not simulate carousel state.",
+      "html": "<div class=\"ds-rail\"><button class=\"ds-card\" type=\"button\" aria-label=\"Jelajahi Bromo\" aria-disabled=\"false\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/8/8e/Bromo-Semeru-Batok-Widodaren.jpg\" alt=\"\" style=\"object-position: center 48%\"/><span class=\"ds-card-shade\"></span><span class=\"ds-card-number\">02</span><span class=\"ds-card-text\"><span class=\"ds-card-name\">Bromo</span><span class=\"ds-card-category\">Gunung &amp; petualangan</span><span class=\"ds-card-link\">Jelajahi <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10M7 17 17 7\"/></svg></span></span></button></div>",
+      "css": ".ds-rail { --card-width: 160px; --card-gap: 16px; position: relative; height: 224px; touch-action: pan-y; } .ds-card { position: absolute; top: 0; left: 0; width: var(--card-width); height: 100%; text-align: left; border: 0; padding: 0; border-radius: 12px; overflow: hidden; background: var(--color-dialog); color: var(--color-ink); font-family: var(--font-body); transform-origin: center; cursor: pointer; touch-action: manipulation; } .ds-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: scale 500ms var(--ease-out); } .ds-card:hover > img { scale: 1.055; } .ds-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -4px; } .ds-card:active:not(:disabled) { translate: 0 1px; } .ds-card[aria-disabled=\"true\"] { cursor: default; } .ds-card-shade { position: absolute; inset: 0; background: linear-gradient(0deg, color-mix(in oklch, var(--color-shade) 90%, transparent), var(--color-clear) 85%); } .ds-card-number { position: absolute; top: 16px; left: 16px; font-size: 11px; line-height: 1; padding-bottom: 6px; border-bottom: 1px solid var(--color-ink); } .ds-card-text { position: absolute; inset: auto 16px 20px; display: flex; flex-direction: column; align-items: flex-start; } .ds-card-name { font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1; text-transform: uppercase; white-space: nowrap; } .ds-card-category { font-size: 9px; color: var(--color-muted); margin-top: 8px; } .ds-card-link { display: flex; align-items: center; gap: 8px; font-size: 10px; margin-top: 14px; } @media (min-width: 640px) { .ds-rail { --card-width: 208px; --card-gap: 20px; height: 284px; } .ds-card-name { font-size: 32px; } .ds-card-text { inset-inline: 20px; bottom: 24px; } .ds-card-category { font-size: 10px; } } @media (min-width: 1024px) { .ds-rail { --card-width: 216px; height: 312px; } } @media (min-width: 1440px) { .ds-rail { --card-width: 232px; --card-gap: 24px; height: 336px; } .ds-card-name { font-size: 36px; } } @media (prefers-reduced-motion: reduce) { .ds-card > img { transition-duration: 0.01ms !important; } .ds-card:hover > img { scale: 1; } }"
+    },
+    {
+      "name": "Destination photo credit",
+      "kind": "custom",
+      "refersTo": "photo-credit",
+      "description": "Actual Bromo credit label and source link from lib/destinations.ts, normally inside the details dialog. Opens the stored source in a new tab; no author identity or license terms are inferred.",
+      "html": "<a class=\"ds-credit\" href=\"https://commons.wikimedia.org/wiki/File:Bromo-Semeru-Batok-Widodaren.jpg\" target=\"_blank\" rel=\"noreferrer\">Bromo–Semeru–Batok–Widodaren · Wikimedia Commons<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10M7 17 17 7\"/></svg></a>",
+      "css": ".ds-credit { display: inline-flex; gap: 8px; align-items: center; font-family: var(--font-body); font-size: 10px; color: var(--color-ink); text-decoration: underline; text-underline-offset: 4px; margin-top: 12px; min-height: 44px; touch-action: manipulation; } .ds-credit > svg { flex-shrink: 0; } .ds-credit:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 5px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A moving window into Indonesian destinations",
+    "overview": "Full-bleed destination photography establishes the cinematic setting. Warm ivory copy, amber controls, dark photographic scrims, and condensed destination names frame a right-edge portrait filmstrip. Geist carries the smaller Indonesian interface copy.\n\nThis is a code-first record of the implemented hero, including its destination-details dialog. The approved cinematic direction supplies the descriptive language; the implementation supplies the values and behavior. It is a hero-scoped system, not a specification for future pages or travel services.",
+    "keyCharacteristics": [
+      "Photography remains the dominant surface, with layered scrims behind text.",
+      "Condensed uppercase destination names contrast with compact Geist interface copy.",
+      "One GSAP timeline coordinates scenery, destination copy, and filmstrip changes.",
+      "Responsive clipping and measured card visibility constrain keyboard card access.",
+      "User pause, native dialog behavior, and reduced-motion handling are implemented controls."
+    ],
+    "rules": [
+      { "name": "The Photographic Contrast Rule", "body": "Keep the implemented scrims with the destination photography; the text treatment is composed against these overlays, not the unshaded image.", "section": "colors" },
+      { "name": "The Tonal Depth Rule", "body": "Preserve the hero's existing gradient and opacity layering when reproducing it; no shadow vocabulary is implemented here.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** retain the implemented photographic scrims behind warm ivory copy.",
+      "**Do** use Barlow Condensed for destination titles and Geist for interface copy.",
+      "**Do** keep manual navigation, persistent pause, measured card Tab eligibility, and inset card focus visible.",
+      "**Do** preserve the short reduced-motion crossfade and disabled autoplay when describing current behavior.",
+      "**Do** update each demo image together with its credit and crop position in `lib/destinations.ts`."
+    ],
+    "donts": [
+      "**Don't** describe the five-second countdown as the exact duration of a complete slide cycle.",
+      "**Don't** promise three fully visible cards at every viewport or a visually reordered Tab sequence.",
+      "**Don't** claim motion is entirely removed or all offscreen cards are hidden from assistive technology.",
+      "**Don't** infer photographer identities, licensing terms, or brand ownership beyond the recorded source links.",
+      "**Don't** turn destination inspiration into claims about packages, prices, availability, testimonials, or booking contacts."
+    ]
+  }
+}
